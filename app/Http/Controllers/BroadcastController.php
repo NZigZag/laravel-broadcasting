@@ -30,4 +30,13 @@ class BroadcastController extends Controller
             new TestPrivateChannelEvent(666)
         );
     }
+
+    public function room(): View
+    {
+        $userId = rand(1, 10);
+        $user = User::whereId($userId)->firstOrFail();
+        auth()->login($user);
+
+        return view('room', ['user' => $user]);
+    }
 }
