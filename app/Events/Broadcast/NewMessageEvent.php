@@ -12,9 +12,16 @@ class NewMessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public string $message;
+
+    public function __construct(string $message)
+    {
+        $this->message = $message;
+    }
+
     public function broadcastOn()
     {
-        return new PresenceChannel('our-room');
+        return new PresenceChannel('room');
     }
 
     public function broadcastAs()
