@@ -12,4 +12,5 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .js('resources/js/room.js', 'public/js');
+   .js('resources/js/room.js', 'public/js')
+   .js('resources/js/notification.js', 'public/js');

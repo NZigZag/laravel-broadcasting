@@ -12,3 +12,7 @@ Broadcast::channel('room', function ($user) {
         'name' => $user->name
     ];
 });
+
+Broadcast::channel('users.{userId}', function ($user, $userId) {
+    return $user->id === (int) $userId;
+});

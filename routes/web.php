@@ -15,3 +15,9 @@ Route::get('/room', 'RoomController@room')
 
 Route::post('/room/send-message', 'RoomController@sendMessage')
     ->name('room.send-message');
+
+Route::get('/notifications', 'NotificationController@index')
+    ->name('notifications.index');
+
+Route::get('/notifications/send-users-notifications', 'NotificationController@sendNotificationsToUsers')
+    ->name('notifications.send');
