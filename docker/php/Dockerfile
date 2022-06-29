@@ -23,10 +23,13 @@ RUN apt-get update \
     git \
     curl
 
+RUN pecl install redis
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
+RUN docker-php-ext-enable redis
 RUN docker-php-ext-install pdo pdo_pgsql pgsql mbstring zip exif pcntl
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd

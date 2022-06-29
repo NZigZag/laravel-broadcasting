@@ -21,3 +21,6 @@ Route::get('/notifications', 'NotificationController@index')
 
 Route::get('/notifications/send-users-notifications', 'NotificationController@sendNotificationsToUsers')
     ->name('notifications.send');
+
+Route::get('/cache', 'CacheController@index')
+    ->name('cache.index');
