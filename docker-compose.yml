@@ -22,6 +22,8 @@ services:
         restart: unless-stopped
         depends_on:
             - laravel-broadcasting-app
+            - laravel-broadcasting-redis
+            - laravel-broadcasting-db
         ports:
             - "80:80"
             - "443:443"
@@ -49,8 +51,12 @@ services:
     laravel-broadcasting-redis:
         image: redis:alpine
         container_name: laravel-broadcasting-redis
+        restart: always
         ports:
             - '6379:6379'
+        command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+        volumes:
+            - laravel-broadcasting-cache:/data
         networks:
             - app-network
 #Docker Networks
@@ -60,4 +66,6 @@ networks:
 #Volumes
 volumes:
     laravel-broadcasting-data:
+        driver: local
+    laravel-broadcasting-cache:
         driver: local

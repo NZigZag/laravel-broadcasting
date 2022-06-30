@@ -8,16 +8,12 @@ class CacheController extends Controller
 {
     public function index()
     {
-        $key = 'key_123';
+        $key = 'cache_key';
 
         if (!Cache::has($key)) {
-            Cache::put($key, 'baz123456');
+            Cache::put($key, 'baz_123456', now()->addMinutes(5));
         }
 
-        $value = Cache::get($key);
-
-        dd(
-            $value
-        );
+        return Cache::get($key);
     }
 }
