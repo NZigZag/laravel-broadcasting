@@ -25,3 +25,6 @@ Route::get('/notifications/send-users-notifications', 'NotificationController@se
 Route::get('/cache', 'CacheController@index')
     ->middleware('throttle:test-cache')
     ->name('cache.index');
+
+Route::get('/queue', 'QueueController@index')
+    ->name('queue.index');

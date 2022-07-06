@@ -21,7 +21,8 @@ RUN apt-get update \
     vim \
     unzip \
     git \
-    curl
+    curl \
+    supervisor
 
 RUN pecl install redis
 
