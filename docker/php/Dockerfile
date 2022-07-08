@@ -38,18 +38,16 @@ RUN docker-php-ext-install gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+COPY ./docker/php/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY ./docker/php/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
 
-# Copy existing application directory permissions
-COPY --chown=www:www . /var/www
+RUN mkdir -p /var/log/nginx
+RUN touch /var/log/nginx/access.log
+RUN touch /var/log/nginx/error.log
 
-COPY laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
+COPY ./docker/php/run.sh /usr/local/bin/run.sh
+RUN chmod +x /usr/local/bin/run.sh
 
-# Change current user to www
-USER www
+EXPOSE 80 9000
 
-EXPOSE 9000
-
-CMD ["php-fpm"]
+ENTRYPOINT ["/usr/local/bin/run.sh"]
